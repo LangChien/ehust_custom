@@ -1,22 +1,22 @@
-const BASE_URL = 'https://appv6-dot-hust-edu.appspot.com/api/search/course'
-const sessionId = '6CFBB1AA-349D-43F5-BAAE-D95BB25C9375-1749922901976_1749922901976'
-const token = 'PNiIwCMI7VrDA16n3IQj'
+import { envConfig } from '@/config/env.config'
 
-export const searchCourses = async (
-  courseId: string,
-  semester: string,
+export const getCourses = async (
+  courseId?: string,
+  semester?: string,
 ): Promise<ICourseData | null> => {
   try {
+    if (!courseId || !semester) return null
     // Tạo URL kèm query params
-    const url = new URL(BASE_URL)
+    const url = new URL(envConfig.baseUrl)
     url.searchParams.set('courseId', courseId)
     url.searchParams.set('semester', semester)
-    url.searchParams.set('sessionId', sessionId)
-    url.searchParams.set('token', token)
+    url.searchParams.set('sessionId', envConfig.sessionId)
+    url.searchParams.set('token', envConfig.token)
 
     // Gọi API
     const res = await fetch(url.toString(), {
       method: 'GET',
+      cache: 'no-store',
       headers: {
         'Content-Type': 'application/json',
       },

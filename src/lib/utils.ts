@@ -48,8 +48,8 @@ export const getFilteredAndSortedClasses = (
 
   // Apply sorting
   filteredClasses.sort((a, b) => {
-    let aValue: any = a[sortBy as keyof IClassInfo]
-    let bValue: any = b[sortBy as keyof IClassInfo]
+    let aValue = a[sortBy as keyof IClassInfo]
+    let bValue = b[sortBy as keyof IClassInfo]
 
     if (sortBy === 'teachers') {
       aValue = a.teachers.join(', ')

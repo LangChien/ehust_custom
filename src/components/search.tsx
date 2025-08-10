@@ -1,40 +1,28 @@
+'use client'
+
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
-import { searchCourses } from '@/lib/api'
+import { useQuery } from '@/hooks/use-query'
 import { Search } from 'lucide-react'
 import { useState } from 'react'
 
-export interface IProps {
-  setCourseData: React.Dispatch<React.SetStateAction<ICourseData | null>>
-}
-
-export function SearchForm({ setCourseData }: IProps) {
+export function SearchForm() {
+  const { updateParam } = useQuery()
   const [courseId, setCourseId] = useState('')
   const [semester, setSemester] = useState('')
-  const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!courseId.trim() || !semester.trim()) {
       setError('Vui lòng nhập đầy đủ mã học phần và kỳ học')
       return
     }
-
-    setLoading(true)
-    setError('')
-
-    try {
-      const result = await searchCourses(courseId.trim(), semester.trim())
-      setCourseData(result)
-      if (!result) {
-        setError('Không tìm thấy môn học với mã đã nhập')
-      }
-    } catch (err) {
-      setError('Có lỗi xảy ra khi tìm kiếm')
-    } finally {
-      setLoading(false)
-    }
+    updateParam({
+      semester,
+      courseId,
+    })
   }
 
   return (
@@ -73,8 +61,8 @@ export function SearchForm({ setCourseData }: IProps) {
               className='w-full'
             />
           </div>
-          <Button type='submit' disabled={loading} className='px-8'>
-            {loading ? 'Đang tìm...' : 'Tìm kiếm'}
+          <Button type='submit' className='px-8 cursor-pointer'>
+            Tìm kiếm
           </Button>
         </form>
         {error && <p className='text-red-500 text-sm mt-2'>{error}</p>}
