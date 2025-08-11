@@ -39,11 +39,11 @@ export function Toolbar({
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <div className='grid md:grid-cols-4 gap-4'>
+        <div className='grid sm:grid-cols-2 md:grid-cols-4 gap-4'>
           <div>
             <label className='block text-sm font-medium mb-2'>Loại lớp</label>
             <Select value={classTypeFilter} onValueChange={setClassTypeFilter}>
-              <SelectTrigger>
+              <SelectTrigger className='w-full'>
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -59,7 +59,7 @@ export function Toolbar({
           <div>
             <label className='block text-sm font-medium mb-2'>Giảng viên</label>
             <Select value={teacherFilter} onValueChange={setTeacherFilter}>
-              <SelectTrigger>
+              <SelectTrigger className='w-full'>
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -75,7 +75,7 @@ export function Toolbar({
           <div>
             <label className='block text-sm font-medium mb-2'>Sắp xếp theo</label>
             <Select value={sortBy} onValueChange={setSortBy}>
-              <SelectTrigger>
+              <SelectTrigger className='w-full'>
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>

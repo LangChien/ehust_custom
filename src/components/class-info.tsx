@@ -101,7 +101,7 @@ export function ClassInfo({ classInfo }: { classInfo: IClassInfo }) {
             <Clock className='w-4 h-4 text-muted-foreground flex-shrink-0' />
             <div className='min-w-0 flex-1'>
               <p className='text-xs text-muted-foreground'>Thời gian</p>
-              <p className='font-medium text-sm truncate'>{classInfo.placeTimeInfo.trim()}</p>
+              <p className='font-medium text-sm'>{classInfo.placeTimeInfo.trim()}</p>
             </div>
           </div>
 
