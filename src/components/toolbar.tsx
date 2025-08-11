@@ -82,6 +82,7 @@ export function Toolbar({
                 <SelectItem value='classId'>Mã lớp</SelectItem>
                 <SelectItem value='classType'>Loại lớp</SelectItem>
                 <SelectItem value='studentNumRange'>Số sinh viên tối đa</SelectItem>
+                <SelectItem value='studentNum'>Số sinh đã đăng ký</SelectItem>
                 <SelectItem value='teachers'>Giảng viên</SelectItem>
               </SelectContent>
             </Select>
