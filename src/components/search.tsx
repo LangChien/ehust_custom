@@ -10,7 +10,7 @@ import { useState } from 'react'
 export function SearchForm() {
   const { updateParam } = useQuery()
   const [courseId, setCourseId] = useState('')
-  const [semester, setSemester] = useState('')
+  const [semester, setSemester] = useState('20251')
   const [error, setError] = useState('')
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -34,7 +34,10 @@ export function SearchForm() {
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <form onSubmit={handleSubmit} className='flex gap-4 items-end'>
+        <form
+          onSubmit={handleSubmit}
+          className='gap-4 grid md:grid-cols-2 lg:grid-cols-3 items-end'
+        >
           <div className='flex-1'>
             <label htmlFor='courseId' className='block text-sm font-medium mb-2'>
               Mã học phần
@@ -55,13 +58,13 @@ export function SearchForm() {
             <Input
               id='semester'
               type='text'
-              placeholder='Ví dụ: 20241'
+              placeholder='Ví dụ: 20251'
               value={semester}
               onChange={(e) => setSemester(e.target.value)}
               className='w-full'
             />
           </div>
-          <Button type='submit' className='px-8 cursor-pointer'>
+          <Button type='submit' className='px-8 cursor-pointer md:col-span-2 lg:col-span-1'>
             Tìm kiếm
           </Button>
         </form>
