@@ -146,12 +146,15 @@ export function CourseInfo({ courseData }: { courseData: ICourseData }) {
                 <div>
                   <p className='text-sm text-muted-foreground'>Các kỳ gần đây</p>
                   <div className='flex flex-wrap gap-2 mt-1'>
-                    {courseData.lastSemesters.slice(0, 5).map((semester, index) => (
-                      <Badge key={index} variant='secondary' className='flex items-center gap-1'>
-                        <Calendar className='w-3 h-3' />
-                        {semester}
-                      </Badge>
-                    ))}
+                    {courseData.lastSemesters
+                      .sort((a, b) => +b - +a)
+                      .slice(0, 5)
+                      .map((semester, index) => (
+                        <Badge key={index} variant='secondary' className='flex items-center gap-1'>
+                          <Calendar className='w-3 h-3' />
+                          {semester}
+                        </Badge>
+                      ))}
                   </div>
                 </div>
               )}
