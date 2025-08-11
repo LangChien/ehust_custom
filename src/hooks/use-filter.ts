@@ -1,25 +1,22 @@
 import { useState } from 'react'
 
-export function useToolbar() {
+export function useFilter() {
   // Filter and sort states
   const [classTypeFilter, setClassTypeFilter] = useState('all')
   const [teacherFilter, setTeacherFilter] = useState('all')
   const [day, setDay] = useState('all')
   const [dayTime, setDayTime] = useState('all')
-  // Sort states
-  const [sortBy, setSortBy] = useState('classId')
-  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc')
 
   return {
     classTypeFilter,
     teacherFilter,
-    sortBy,
-    sortOrder,
-    setSortOrder,
-    setSortBy,
+    day,
+    setDayTime,
+    setDay,
+    dayTime,
     setClassTypeFilter,
     setTeacherFilter,
   }
 }
 
-export interface IUseToolbar extends ReturnType<typeof useToolbar> {}
+export interface IUseFilter extends ReturnType<typeof useFilter> {}

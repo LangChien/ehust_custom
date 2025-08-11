@@ -1,4 +1,3 @@
-import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import {
   Select,
@@ -7,27 +6,27 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import type { IUseToolbar } from '@/hooks/use-toolbar'
-import { getUniqueValues } from '@/lib/utils'
-import { Filter, SortAsc, SortDesc } from 'lucide-react'
+import { IUseFilter } from '@/hooks/use-filter'
+import { DAY, DAY_TIME, getUniqueValues } from '@/lib/utils'
+import { Filter } from 'lucide-react'
 
-export function Toolbar({
+export function ClassFilter({
   courseData,
-  useToolbar,
+  classFilter,
 }: {
   courseData: ICourseData
-  useToolbar: IUseToolbar
+  classFilter: IUseFilter
 }) {
   const {
     classTypeFilter,
     setClassTypeFilter,
-    setSortBy,
-    setSortOrder,
     setTeacherFilter,
-    sortBy,
-    sortOrder,
     teacherFilter,
-  } = useToolbar
+    day,
+    dayTime,
+    setDay,
+    setDayTime,
+  } = classFilter
   const uniqueTeachers = getUniqueValues(courseData, 'teachers')
   const uniqueClassTypes = getUniqueValues(courseData, 'classType')
   return (
@@ -73,39 +72,36 @@ export function Toolbar({
             </Select>
           </div>
           <div>
-            <label className='block text-sm font-medium mb-2'>Sắp xếp theo</label>
-            <Select value={sortBy} onValueChange={setSortBy}>
+            <label className='block text-sm font-medium mb-2'>Ngày học</label>
+            <Select value={day} onValueChange={setDay}>
               <SelectTrigger className='w-full'>
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value='classId'>Mã lớp</SelectItem>
-                <SelectItem value='classType'>Loại lớp</SelectItem>
-                <SelectItem value='studentNumRange'>Số sinh viên tối đa</SelectItem>
-                <SelectItem value='studentNum'>Số sinh đã đăng ký</SelectItem>
-                <SelectItem value='teachers'>Giảng viên</SelectItem>
+                <SelectItem value='all'>Tất cả</SelectItem>
+                {Object.entries(DAY).map(([key, value]) => (
+                  <SelectItem key={key + value} value={key}>
+                    {value}
+                  </SelectItem>
+                ))}
               </SelectContent>
             </Select>
           </div>
           <div>
-            <label className='block text-sm font-medium mb-2'>Thứ tự</label>
-            <Button
-              variant='outline'
-              onClick={() => setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')}
-              className='w-full justify-start'
-            >
-              {sortOrder === 'asc' ? (
-                <>
-                  <SortAsc className='w-4 h-4 mr-2' />
-                  Tăng dần
-                </>
-              ) : (
-                <>
-                  <SortDesc className='w-4 h-4 mr-2' />
-                  Giảm dần
-                </>
-              )}
-            </Button>
+            <label className='block text-sm font-medium mb-2'>Buổi học</label>
+            <Select value={dayTime} onValueChange={setDayTime}>
+              <SelectTrigger className='w-full'>
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value='all'>Tất cả</SelectItem>
+                {Object.entries(DAY_TIME).map(([key, value]) => (
+                  <SelectItem key={key + value} value={key}>
+                    {value}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
         </div>
       </CardContent>

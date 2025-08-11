@@ -1,27 +1,19 @@
 'use client'
-import { useToolbar } from '@/hooks/use-toolbar'
+import { useFilter } from '@/hooks/use-filter'
+import { useSorter } from '@/hooks/use-sort'
 import { getFilteredAndSortedClasses } from '@/lib/utils'
 import { use } from 'react'
 import { ClassInfo } from './class-info'
 import { CourseInfo } from './course-info'
-import { Toolbar } from './toolbar'
+import { ClassFilter } from './filter'
+import { ClassSorter } from './sorter'
 
 export function CourseResult({ data }: { data: Promise<ICourseData | null> }) {
   const courseData = use(data)
-  const toolbar = useToolbar()
-  const { classTypeFilter, teacherFilter, sortBy, sortOrder } = toolbar
+  const classFilter = useFilter()
+  const classSorter = useSorter()
   // Get filtered and sorted classes
-  const dataDisplay = getFilteredAndSortedClasses(
-    courseData,
-    {
-      classTypeFilter,
-      teacherFilter,
-    },
-    {
-      sortBy,
-      sortOrder,
-    },
-  )
+  const dataDisplay = getFilteredAndSortedClasses(courseData, classFilter, classSorter)
   if (!courseData) return null
 
   return (
@@ -30,11 +22,14 @@ export function CourseResult({ data }: { data: Promise<ICourseData | null> }) {
       <CourseInfo courseData={courseData} />
 
       {/* Filters and Sort */}
-      <Toolbar courseData={courseData} useToolbar={toolbar} />
+      <ClassFilter courseData={courseData} classFilter={classFilter} />
 
       {/* Classes List */}
       <div>
-        <h3 className='text-lg font-semibold mb-4'>Danh sách lớp ({dataDisplay.length} lớp)</h3>
+        <div className='flex items-center justify-between mb-4'>
+          <h3 className='text-lg font-semibold'>Danh sách lớp ({dataDisplay.length} lớp)</h3>
+          <ClassSorter classSorter={classSorter} />
+        </div>
         <div className='grid gap-4'>
           {dataDisplay.map((classInfo) => (
             <ClassInfo key={classInfo.classId} classInfo={classInfo} />
